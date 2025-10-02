@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MF0 version="1.1" packageUris="http://schema.mathworks.com/mf0/faultinfo_datamodel/R2021a">
+  <faultinfo.FaultContainerSet type="faultinfo.FaultContainerSet" uuid="122c0d93-fcca-4e7e-99e6-76c45ce703e5">
+    <conditionals type="faultinfo.conditional.Conditional" uuid="5f82bf1a-d4a9-4264-a62a-dd0c654fb233">
+      <checksum>cda5c764-be84-41fc-a317-dadadcb3c713</checksum>
+      <condition>x == true</condition>
+      <mustBeLogged>false</mustBeLogged>
+      <name>SampleConditional</name>
+      <resyncRefBlkID></resyncRefBlkID>
+      <resyncUUID>00000000-0000-0000-0000-000000000000</resyncUUID>
+      <symbols type="faultinfo.conditional.ExpressionSymbol" uuid="79aa5998-5072-48b5-9856-2a78a458f935">
+        <expression>true</expression>
+        <name>x</name>
+      </symbols>
+    </conditionals>
+    <faultContainers type="faultinfo.FaultContainer" uuid="58aad4c7-f60c-48d8-b45d-e1ec94625d41">
+      <activeFault type="faultinfo.SLFault" uuid="f6669632-04a4-49cd-b0de-0fb2dc9a0848"/>
+      <faultedEntityID>Outport|Ebike:1|1</faultedEntityID>
+      <faultedEntityName>Ebike/Step/Outport/1</faultedEntityName>
+      <faults type="faultinfo.SLFault" uuid="f6669632-04a4-49cd-b0de-0fb2dc9a0848">
+        <checksum>00000000-0000-0000-0000-000000000000</checksum>
+        <faultDescription></faultDescription>
+        <faultName>Step_Outport1_fault</faultName>
+        <resyncUUID>00000000-0000-0000-0000-000000000000</resyncUUID>
+        <triggerOn type="faultinfo.PermanentTrigger" uuid="daae7dcd-1a3f-4b7a-bf86-62d211c1b093">
+          <isPersistent>true</isPersistent>
+        </triggerOn>
+      </faults>
+      <isEnabled>false</isEnabled>
+    </faultContainers>
+    <faultContainers type="faultinfo.FaultContainer" uuid="64b3797c-c36f-4fb1-9960-25d416244d76">
+      <activeFault type="faultinfo.SLFault" uuid="479e0998-95d1-4f55-bd68-a0c536710778"/>
+      <faultedEntityID>Outport|Ebike:7|1</faultedEntityID>
+      <faultedEntityName>Ebike/Zero-Order Hold/Outport/1</faultedEntityName>
+      <faults type="faultinfo.SLFault" uuid="479e0998-95d1-4f55-bd68-a0c536710778">
+        <checksum>d01a122c-2160-4863-a2e6-2e05477795fa</checksum>
+        <faultDescription></faultDescription>
+        <faultName>Zero_OrderHold_Outport1_fault</faultName>
+        <resyncUUID>00000000-0000-0000-0000-000000000000</resyncUUID>
+        <triggerOn type="faultinfo.TimedTrigger" uuid="1b502276-bab8-4fdd-a610-9dae0b4e511d">
+          <startTime>5.0</startTime>
+          <isPersistent>true</isPersistent>
+        </triggerOn>
+      </faults>
+      <isEnabled>true</isEnabled>
+    </faultContainers>
+    <isEnabled>true</isEnabled>
+    <lastUpdatedAt>2025-10-01T13:11:09</lastUpdatedAt>
+    <modelName>Ebike</modelName>
+    <modelUUID>4e2598bb-a0ac-4926-86b1-579a760f56b6</modelUUID>
+  </faultinfo.FaultContainerSet>
+  <faultinfo.FailureModeContainer type="faultinfo.FailureModeContainer" uuid="7f65298d-dd3a-4047-96fd-e2f877215f44">
+    <failureModes type="faultinfo.FailureMode" uuid="ef7e0590-104c-4ff6-8e0e-9a60b62738c4">
+      <ID>1</ID>
+      <associatedFaults type="faultinfo.SLFault" uuid="f6669632-04a4-49cd-b0de-0fb2dc9a0848"/>
+      <faultSubsystemName>Step_Outport1_fault</faultSubsystemName>
+      <resyncUUID>00000000-0000-0000-0000-000000000000</resyncUUID>
+    </failureModes>
+    <failureModes type="faultinfo.FailureMode" uuid="5730a082-402b-40ca-97a1-b3b2181d4636">
+      <ID>6</ID>
+      <associatedFaults type="faultinfo.SLFault" uuid="479e0998-95d1-4f55-bd68-a0c536710778"/>
+      <faultSubsystemName>Zero_OrderHold_Outport1_fault</faultSubsystemName>
+      <resyncUUID>00000000-0000-0000-0000-000000000000</resyncUUID>
+    </failureModes>
+    <faultModelName>Ebike_FaultModel</faultModelName>
+    <faultModelUUID>6198faaa-8db3-4467-bf92-03be6211a62c</faultModelUUID>
+  </faultinfo.FailureModeContainer>
+</MF0>

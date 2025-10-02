@@ -1,0 +1,92 @@
+function divergent_oscillations = isDivOscillating(y)
+    % ISDIVOSCILLATING checks if a signal shows divergent oscillations
+    % Model: y(t) = A * exp(beta * t) * cos(omega * t + phi)
+    % Requires at least 2 significant peaks
+    % Returns true if beta > 0 and R^2 > threshold
+
+    % --- Preprocessing ---
+    y = y(:);
+    if iscell(y)
+        y = cell2mat(y);
+    end
+    y = y(~isnan(y) & ~isinf(y));
+
+    % If signal too short, return false
+    if length(y) < 5
+        divergent_oscillations = false;
+        return;
+    end
+
+    % --- Peaks check (at least 2 significant peaks) ---
+    [validPeaks] = findMaxPeaks(y, 0.2*max(y), 100);
+
+
+    if numel(validPeaks) < 3
+        divergent_oscillations = false;
+        return;
+    end
+
+    % --- Time normalization ---
+    t = (1:length(y))';
+
+    % --- Initial guesses ---
+    A0 = max(abs(y));   % amplitude
+    beta0 = 0.01;       % >0 for divergent
+    omega0 = 1;      % guess 1 Hz
+    phi0 = 0;
+    params0 = [A0, beta0, omega0, phi0];
+
+    % --- Parameter bounds ---
+    % lb = [0, 0, 0, -pi];       % A>=0, beta>=0, omega>=0
+    % ub = [Inf, 10, 50, pi];    % reasonable limits
+
+    % --- Model definition ---
+    model = @(params, t) params(1) * exp(params(2) * t) .* cos(params(3) * t + params(4));
+
+    % --- Fit options ---
+    options = optimoptions('lsqcurvefit', ...
+        'TolFun', 1e-6, 'MaxIterations', 1000, 'Display', 'off');
+
+    try
+        % Perform curve fitting
+        params_fit = lsqcurvefit(model, params0, t, y, [], [], options);
+
+        % Extract fitted params
+        beta_fit = params_fit(2);
+
+        % Divergence requires beta > 0
+        if beta_fit <= 0
+            divergent_oscillations = false;
+            return;
+        end
+
+        % Compute fitted curve
+        y_fit = model(params_fit, t);
+
+        % Compute R^2
+        residuals = y - y_fit;
+        SSR = sum(residuals.^2);
+        SST = sum((y - mean(y)).^2);
+        R2 = 1 - SSR/SST;
+
+        % Threshold check
+        threshold = 0.9;
+        divergent_oscillations = R2 > threshold;
+
+        if divergent_oscillations
+            figure;
+            plot(y, 'b', 'LineWidth', 1.5); hold on;
+            plot(y_fit, 'r--', 'LineWidth', 1.5);
+            legend('Signal','Fitted');
+            title(['Divergent fit, R^2 = ' num2str(R2,'%.2f')]);
+            hold off;
+        end
+
+    catch
+        % If fitting fails
+        divergent_oscillations = false;
+    end
+end
+
+
+
