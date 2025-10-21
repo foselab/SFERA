@@ -50,15 +50,15 @@ function isExp = isExpDivergent(y)
         threshold = 0.9;
         isExp = R2 > threshold;
         
-        if isExp
-            % === Plot result ===
-            figure;
-            plot(y,'b','LineWidth',1.5); hold on;
-            plot(y_fit,'r--','LineWidth',1.5);
-            legend('Real segment','Exponential fit');
-            title(['Exponential fit, R^2 = ' num2str(R2,'%.2f')]);
-            hold off;
-        end
+        % if isExp
+        %     % === Plot result ===
+        %     figure;
+        %     plot(y,'b','LineWidth',1.5); hold on;
+        %     plot(y_fit,'r--','LineWidth',1.5);
+        %     legend('Real segment','Exponential fit');
+        %     title(['Exponential fit, R^2 = ' num2str(R2,'%.2f')]);
+        %     hold off;
+        % end
     catch
         % If fitting fails (e.g., numerical issues), return false
         isExp = false;

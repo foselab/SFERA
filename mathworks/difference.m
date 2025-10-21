@@ -6,40 +6,11 @@ modelName = 'Ebike';
 %Load model
 load_system(modelName);
 faults = Simulink.fault.findFaults(modelName);
-fm = Simulink.fault.getFaultModels(modelName);
-load_system(fm(1));
-
-% allBlocks = find_system(fm(1), 'FollowLinks', 'on', 'LookUnderMasks', 'all');
-% for b = 11:length(allBlocks)
-%     parts = regexp(allBlocks(b),'/','split'); 
-%     if strcmp(parts{1,1}{1,2}, faults(3).Name)
-%         try
-%             blkType = get_param(allBlocks(b), 'Name');
-%         catch
-%             blkType = 'Unknown';
-%         end
-% 
-%         try
-%             params = get_param(allBlocks(b), 'DialogParameters');
-%         catch
-%             params = {};
-%         end
-%     end
-% end
-
-
-get_param('Ebike_FaultModel/Zero_OrderHold_Outport1_fault/White Noise', 'Mean')
-componentList = unique({faults.ModelElement});
-selected = 'Ebike/Step/Outport/1';
-filterfaults = faults(strcmp({faults.ModelElement}, selected));
-f = faults(1);
-nf = length(filterfaults);
 
 startTime = 10;
 endTime = 20;
 
-for i = 2:nf
-    if faults(i).IsActive
+for i = 1: length(faults)
             % --- tuning fault ---
 
             % --- Simulation with fault off ---
@@ -48,11 +19,6 @@ for i = 2:nf
             simIn1 = simIn1.setModelParameter('StopTime', num2str(endTime));
             simOut1 = sim(simIn1);
 
-            if faults(i).TriggerType == "Conditional"
-                if faults(i).Conditional.LogActivity == false
-                    faults(i).Conditional.LogActivity = true;
-                end
-            end
             % --- Simulation with fault ON ---
             Simulink.fault.enable(faults(i).ModelElement,true);
             simIn2  = Simulink.SimulationInput(modelName);
@@ -113,11 +79,10 @@ for i = 2:nf
         
         for k = 1:N
             seg = segments{k};
-            [isDiv, howDiv] = isDivergent(seg);
+            [isDiv, howDiv] = isDivergent(seg, 'Exponential Divergence');
             result{k,1} = isDiv;
             result{k,2} = howDiv;
         end
-    end
 end
         
        
