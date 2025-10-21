@@ -70,7 +70,7 @@ function divergent_oscillations = isDivOscillating(y)
         R2 = 1 - SSR/SST;
 
         % Threshold check
-        threshold = 0.9;
+        threshold = 0.95;
         divergent_oscillations = R2 > threshold;
 
         if divergent_oscillations

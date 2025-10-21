@@ -54,7 +54,7 @@ function isCubicRad = isCubicRadix(y)
         R2 = 1 - SSR/SST;
 
         % Threshold for accepting cubic radix behavior
-        threshold = 0.9;
+        threshold = 0.95;
         isCubicRad = R2 > threshold;
         
         if isCubicRad

@@ -50,7 +50,7 @@ function runge = isRunge(y)
         R2 = 1 - SSR/SST;
 
         % Threshold
-        threshold = 0.9;
+        threshold = 0.95;
         runge = R2 > threshold;
 
         if runge

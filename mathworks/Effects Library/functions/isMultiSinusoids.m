@@ -49,7 +49,7 @@ function multi_sinusoids = isMultiSinusoids(y, N)
         R2 = 1 - SSR/SST;
 
         % Threshold
-        threshold = 0.9;
+        threshold = 0.95;
         multi_sinusoids = R2 > threshold;
 
         % === Plot result ===

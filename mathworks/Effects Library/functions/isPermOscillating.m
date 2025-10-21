@@ -66,7 +66,7 @@ function permanent_oscillations = isPermOscillating(y)
         R2 = 1 - SSR/SST;
 
         % Threshold for good fit
-        threshold = 0.9;
+        threshold = 0.95;
         permanent_oscillations = R2 > threshold;
 
         if permanent_oscillations

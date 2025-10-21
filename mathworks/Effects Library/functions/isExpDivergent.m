@@ -47,7 +47,7 @@ function isExp = isExpDivergent(y)
         R2 = 1 - SSR / SST;                   % Coefficient of determination
 
         % Decide if exponential fit is good enough
-        threshold = 0.9;
+        threshold = 0.95;
         isExp = R2 > threshold;
         
         % if isExp

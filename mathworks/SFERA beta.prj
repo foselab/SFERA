@@ -8,7 +8,7 @@
     <param.icons />
     <param.summary />
     <param.description />
-    <param.screenshot>C:\Users\s.maatoug\AppData\Local\Temp\tpdb829a60_9cd5_4a7c_a666_21796475ed30.png</param.screenshot>
+    <param.screenshot>C:\Users\s.maatoug\AppData\Local\Temp\tp111e5f42_318f_465a_b45e_e97eb93f0198.png</param.screenshot>
     <param.version>1.0</param.version>
     <param.products.name />
     <param.products.id />
@@ -35,11 +35,21 @@
       <file>${PROJECT_ROOT}\SFERA.mlapp</file>
     </fileset.main>
     <fileset.depfun>
-      <file>C:\Users\s.maatoug\Desktop\mathworks\segmentations\dySegmentation.m</file>
-      <file>C:\Users\s.maatoug\Desktop\mathworks\segmentations\matlabSegmentation.m</file>
-      <file>C:\Users\s.maatoug\Desktop\mathworks\segmentations\swSegmentation.m</file>
-      <file>C:\Users\s.maatoug\Desktop\mathworks\segmentations\uniformSegmentation.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\auxfunc\findMaxPeaks.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\isArcTanDivergent.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\isCubicRadix.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\isDampOscillating.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\isDivergent.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\isDivOscillating.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\isExpDivergent.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\isMultiSinusoids.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\isPermOscillating.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\isRunge.m</file>
       <file>${PROJECT_ROOT}\others\logo\logo3.png</file>
+      <file>${PROJECT_ROOT}\segmentations\dySegmentation.m</file>
+      <file>${PROJECT_ROOT}\segmentations\matlabSegmentation.m</file>
+      <file>${PROJECT_ROOT}\segmentations\swSegmentation.m</file>
+      <file>${PROJECT_ROOT}\segmentations\uniformSegmentation.m</file>
     </fileset.depfun>
     <fileset.resources />
     <fileset.package />

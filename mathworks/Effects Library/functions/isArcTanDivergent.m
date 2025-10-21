@@ -51,7 +51,7 @@ function isArcTan = isArcTanDivergent(y)
         R2 = 1 - SSR/SST;
 
         % Threshold for accepting cubic radix behavior
-        threshold = 0.9;
+        threshold = 0.95;
         isArcTan = R2 > threshold;
         
         if isArcTan

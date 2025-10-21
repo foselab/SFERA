@@ -49,7 +49,7 @@ function isFifthRad = isFifthRadix(y)
         R2 = 1 - SSR/SST;
 
         % Threshold
-        threshold = 0.9;
+        threshold = 0.95;
         isFifthRad = R2 > threshold;
 
         if isFifthRad

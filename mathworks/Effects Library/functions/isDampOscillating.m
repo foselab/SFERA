@@ -67,7 +67,7 @@ function damping_oscillations = isDampOscillating(y)
         R2 = 1 - SSR/SST;
 
         % Threshold for accepting damped oscillation
-        threshold = 0.9;
+        threshold = 0.95;
         damping_oscillations = R2 > threshold;
 
         if damping_oscillations
