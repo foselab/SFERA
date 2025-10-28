@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="1361112403" file="C:\Users\s.maatoug\Documents\SFERA\mathworks\SFERA beta.prj" location="C:\Users\s.maatoug\Documents\SFERA\mathworks" name="SFERA beta" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="2775946703" file="C:\Users\s.maatoug\Documents\SFERA\mathworks\SFERA beta.prj" location="C:\Users\s.maatoug\Documents\SFERA\mathworks" name="SFERA beta" target="target.mlapps" target-name="Package App">
     <param.appname>SFERA beta</param.appname>
     <param.authnamewatermark />
     <param.email />
@@ -8,7 +8,7 @@
     <param.icons />
     <param.summary />
     <param.description />
-    <param.screenshot>C:\Users\s.maatoug\AppData\Local\Temp\tp111e5f42_318f_465a_b45e_e97eb93f0198.png</param.screenshot>
+    <param.screenshot>C:\Users\s.maatoug\AppData\Local\Temp\tpc8230afc_d05c_4986_87e9_523d5d678f08.png</param.screenshot>
     <param.version>1.0</param.version>
     <param.products.name />
     <param.products.id />
