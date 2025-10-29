@@ -27,7 +27,7 @@
           <isPersistent>true</isPersistent>
         </triggerOn>
       </faults>
-      <isEnabled>false</isEnabled>
+      <isEnabled>true</isEnabled>
     </faultContainers>
     <faultContainers type="faultinfo.FaultContainer" uuid="64b3797c-c36f-4fb1-9960-25d416244d76">
       <activeFault type="faultinfo.SLFault" uuid="479e0998-95d1-4f55-bd68-a0c536710778"/>
@@ -60,7 +60,7 @@
       <isEnabled>false</isEnabled>
     </faultContainers>
     <isEnabled>true</isEnabled>
-    <lastUpdatedAt>2025-10-14T13:27:14</lastUpdatedAt>
+    <lastUpdatedAt>2025-10-29T14:02:53</lastUpdatedAt>
     <modelName>Ebike</modelName>
     <modelUUID>4e2598bb-a0ac-4926-86b1-579a760f56b6</modelUUID>
   </faultinfo.FaultContainerSet>
