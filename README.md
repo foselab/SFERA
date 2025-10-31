@@ -8,12 +8,12 @@ This repository contains the core code, auxiliary functions, and the user manual
 ## 🗂 Repository Structure
 
 ```text
-├── Model/                        # Model on which the tool is tested
-├── User_Manual.pdf               # Basic user guide and instructions
+├── Buck_BLDC_2023a_4.slxc        # Model on which the tool is tested
+├── User Manual.pdf               # Basic user guide and instructions
 ├── mathworks/                    # Main MATLAB code directory
-│   ├── SFERA_beta.mltbx          # Installation package (beta version)
-│   ├── SFERA_beta.prj            # Installation project file
-│   ├── SFERA.mlapp           # App Designer main interface
+│   ├── SFERA beta.mlappinstall   # Installation package (beta version)
+│   ├── SFERA beta.prj            # Installation project file
+│   ├── SFERA.mlapp               # App Designer main interface
 │   ├── help_functions/           # Auxiliary functions (e.g., signal cleaning)
 │   ├── segmentations/            # Signal segmentation routines
 │   ├── images/                   # Tool-related images (e.g., logo)
@@ -28,8 +28,8 @@ This repository contains the core code, auxiliary functions, and the user manual
 ### `mathworks/`
 This is the main folder containing all MATLAB code and resources required to run SFERA.
 
-- **`SFERA_App.mlapp`** – The App Designer file providing the main graphical interface.  
-- **`SFERA_beta.mltbx`** and **`SFERA_beta.prj`** – Files used for installing and deploying the tool.  
+- **`SFERA.mlapp`** – The App Designer file providing the main graphical interface.  
+- **`SFERA beta.mlappinstall`** and **`SFERA_beta.prj`** – Files used for installing and deploying the tool.  
 - **`help_functions/`** – Includes utility functions such as signal cleaning routines.  
 - **`segmentations/`** – Contains algorithms for different signal segmentation strategies.  
 - **`images/`** – Stores visual assets like the tool’s logo.  
@@ -50,7 +50,7 @@ Please refer to it before running the app for the first time.
 ## ⚙️ Installation & Usage
 
 1. Open **MATLAB**.  
-2. Install the tool by running the provided `.mltbx` package or using the `.prj` file in **App Designer**.  
+2. Install the tool by running the provided `.mlappinstall` package or using the `.prj` file in **App Designer**.  
 3. Launch the **SFERA App** from the MATLAB Apps tab or directly from the `SFERA_App.mlapp` file.  
 4. Follow the steps described in the **User Manual** to begin analyzing your signals.
 
