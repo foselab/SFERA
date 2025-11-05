@@ -16,7 +16,7 @@ function isExp = isExpDivergent(y)
     end
 
     % Normalize time axis to [0,1] to avoid overflow in exp(B*t)
-    t = (0:length(y)-1)' / length(y);
+    t = (0:length(y)-1)'/length(y);
 
     % Exponential model function: y = A * exp(B * t)
     model = @(params, t) params(1) * exp(params(2) * t);
@@ -28,7 +28,7 @@ function isExp = isExpDivergent(y)
     params0 = [A0, 0.01];
 
     % Parameter bounds to prevent divergence
-    lb = [0, -10];   % A >= 0, B not too negative
+    lb = [-Inf, -10];   % A unbounded, B not too negative
     ub = [Inf, 10];  % A unbounded, B not too large positive
 
     % Fit with lsqcurvefit
