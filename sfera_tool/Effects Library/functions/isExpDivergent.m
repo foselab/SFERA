@@ -29,7 +29,7 @@ function isExp = isExpDivergent(y, opt)
     % --- Initial guesses ---
     A0 = min(y);  % baseline
     B0 = max(y) - min(y);
-    C0 = opt.initC0;  % preso dall’oggetto opzioni
+    C0 = opt.params0(3);  
     opt.params0 = [A0, B0, C0];
 
     % --- Bounds ---

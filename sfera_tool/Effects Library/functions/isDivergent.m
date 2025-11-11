@@ -1,100 +1,93 @@
-function [isDiv, howDiv] = isDivergent(y, opt, effectName, customFunc, params0)
-%ISDIVERGENT Detects if a signal exhibits divergent or oscillatory behavior.
+function [isDiv, howDiv] = isDivergent(y, effectName, customFunc, params0)
+%ISDIVERGENT Detects divergent or oscillatory behavior in a signal
 %
-%   [isDiv, howDiv] = isDivergent(y, t, opt, effectName, customFunc, params0)
+%   [isDiv, howDiv] = isDivergent(y, effectName, customFunc, params0)
 %
 %   PARAMETERS:
-%       y          - Signal to analyze (numeric vector)
-%       t          - Time vector corresponding to y (optional)
-%                    If empty, it will be automatically generated as 
-%                    t = (0:length(y)-1)';
-%       opt        - Options object (subclass of 'options') containing parameters 
-%                    like threshold, bounds, initial guesses, etc.
-%       effectName - (Optional) String specifying which model to test:
-%                    'Exponential Divergence', 'Damped Oscillations', etc.
-%       customFunc - (Optional) Custom model function handle of the form f(p,t)
-%       params0    - (Optional) Initial parameter guesses for customFunc
+%       y          - Signal vector
+%       effectName - Optional, string specifying which model to test
+%       customFunc - Optional, custom function handle or string: f(params, t)
+%       params0    - Optional, initial parameters for customFunc
 %
 %   RETURNS:
-%       isDiv  - Logical flag, true if divergence/trend detected
-%       howDiv - Description of the detected effect
-%
-%   The function can operate in three modes:
-%       1. Custom model mode (when customFunc is provided)
-%       2. Specific model mode (when effectName is provided)
-%       3. Full scan mode (default), testing all models sequentially
-
-    % --- Preprocessing ---
-    if nargin < 2 || isempty(t)
-        t = (0:length(y)-1)' / length(y);
-    end
-    if nargin < 3 || isempty(opt)
-        opt = options(); % Default if no options provided
-    end
+%       isDiv      - True if divergence detected
+%       howDiv     - String describing detected effect
 
     % --- CASE 1: Custom function ---
-    if nargin >= 5 && ~isempty(customFunc)
+    if nargin >= 3 && ~isempty(customFunc)
         if isempty(params0)
             error('params0 must be provided when using a custom function.');
         end
         if ischar(customFunc)
             customFunc = str2func(customFunc);
         elseif ~isa(customFunc, 'function_handle')
-            error('customFunc must be a function handle or a valid function name string.');
+            error('customFunc must be a function handle or string.');
         end
 
+        % Use generic divergence function (internally creates t, options)
+        opt = [];  % can pass default inside isGenericDiv
         isDiv = isGenericDiv(y, opt, customFunc, params0);
         howDiv = ternary(isDiv, 'Custom Divergent Behavior', 'No divergence detected by custom function');
         return;
     end
 
-    % --- CASE 2: Specific model ---
-    if nargin >= 4 && ~isempty(effectName)
+    % --- CASE 2: Specific effect ---
+    if nargin >= 2 && ~isempty(effectName)
         switch effectName
             case 'Exponential Divergence'
+                opt = expDivergenceOptions();  % create specific options object
                 isDiv = isExpDivergent(y, opt);
             case 'Damped Oscillations'
+                opt = dampOscillationOptions();
                 isDiv = isDampOscillating(y, opt);
             case 'Permanent Oscillations'
+                opt = permOscillationOptions();
                 isDiv = isPermOscillating(y, opt);
             case 'Divergent Oscillations'
+                opt = divOscillationOptions();
                 isDiv = isDivOscillating(y, opt);
             case 'Sum of Sinusoids'
+                opt = multiSinusoidsOptions();
                 isDiv = isMultiSinusoids(y, opt);
             case 'Runge Trend'
+                opt = rungeOptions();
                 isDiv = isRunge(y, opt);
             case 'Arctangent Trend'
+                opt = arcTanOptions();
                 isDiv = isArcTanDivergent(y, opt);
             case 'Cubic Radix Trend'
+                opt = cubicRadixOptions();
                 isDiv = isCubicRadix(y, opt);
             case 'Fifth Radix Trend'
+                opt = fifthRadixOptions();
                 isDiv = isFifthRadix(y, opt);
             otherwise
                 warning('Unknown effectName: %s. Running full analysis.', effectName);
                 isDiv = false;
         end
-
         howDiv = ternary(isDiv, effectName, 'No divergence detected');
         return;
     end
 
     % --- CASE 3: Full scan (default) ---
     modelTests = {
-        'Exponential Divergence',   @isExpDivergent;
-        'Permanent Oscillations',   @isPermOscillating;
-        'Damped Oscillations',      @isDampOscillating;
-        'Divergent Oscillations',   @isDivOscillating;
-        'Cubic Radix Trend',        @isCubicRadix;
-        'Fifth Radix Trend',        @isFifthRadix;
-        'Arctangent Trend',         @isArcTanDivergent;
-        'Runge Trend',              @isRunge;
-        'Sum of Sinusoids',         @isMultiSinusoids
+        'Exponential Divergence',   @isExpDivergent,   @expDivergenceOptions;
+        'Permanent Oscillations',   @isPermOscillating,@permOscillationOptions;
+        'Damped Oscillations',      @isDampOscillating,@dampOscillationOptions;
+        'Divergent Oscillations',   @isDivOscillating, @divOscillationOptions;
+        'Cubic Radix Trend',        @isCubicRadix,     @cubicRadixOptions;
+        'Fifth Radix Trend',        @isFifthRadix,     @fifthRadixOptions;
+        'Arctangent Trend',         @isArcTanDivergent,@arcTanOptions;
+        'Runge Trend',              @isRunge,          @rungeOptions;
+        'Sum of Sinusoids',         @isMultiSinusoids, @multiSinusoidsOptions
     };
 
     isDiv = false;
     howDiv = 'No divergence detected';
 
     for k = 1:size(modelTests,1)
+        optClass = modelTests{k,3};
+        opt = optClass();  % instantiate specific options
         fn = modelTests{k,2};
         if fn(y, opt)
             isDiv = true;
@@ -103,7 +96,6 @@ function [isDiv, howDiv] = isDivergent(y, opt, effectName, customFunc, params0)
         end
     end
 end
-
 
 %% Helper: simple inline ternary operator
 function out = ternary(cond, a, b)

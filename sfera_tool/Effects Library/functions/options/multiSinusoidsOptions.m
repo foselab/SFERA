@@ -6,6 +6,9 @@ classdef multiSinusoidsOptions < options
         % --- Number of sinusoids ---
         N double = 2;          % default: sum of 2 cosines
 
+         % --- Initial guesses ---
+        params0 double = []; 
+
         % --- Optimization parameters ---
         tolFun double = 1e-6;
         maxIter double = 1000;

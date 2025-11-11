@@ -37,10 +37,7 @@ function isPerm = isPermOscillating(y, opt)
 
     % --- Initial guesses ---
     A0 = max(abs(y));
-    beta0 = 0;           % no damping
-    omega0 = 2 * pi;     % frequency guess
-    phi0 = 0;
-    opt.params0 = [A0, beta0, omega0, phi0];
+    opt.params0 = [A0, opt.params0];
 
     % --- Model ---
     model = @(p, t) p(1) * exp(p(2) * t) .* cos(p(3) * t + p(4));

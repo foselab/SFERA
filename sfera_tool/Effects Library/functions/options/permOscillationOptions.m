@@ -6,6 +6,9 @@ classdef permOscillationOptions < options
         lb double = [0, -1e-6, 0, -pi];
         ub double = [Inf, 1e-6, 50, pi];
 
+        % --- Initial guesses ---
+        params0 double = [1, 0, 2*pi, 0];  
+
         % --- Optimization parameters ---
         tolFun double = 1e-6;
         maxIter double = 1000;
