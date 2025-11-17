@@ -11,9 +11,6 @@ function damping_oscillations = isDampOscillating(y, opt)
 
     % --- Preprocessing ---
     y = y(:);
-    % if iscell(y)
-    %     y = cell2mat(y);
-    % end
     y = y(~isnan(y) & ~isinf(y));
 
     % If the signal is too short, return false
@@ -37,9 +34,9 @@ function damping_oscillations = isDampOscillating(y, opt)
     % --- Initial guesses ---
     A0 = max(abs(y));    % amplitude
     beta0 = -0.01;       % negative damping
-    omega0 = 1;          % frequency
+    omega0 = 0.01;       % frequency
     phi0 = 0;            % phase
-    C0 = mean(y);        % offset
+    C0 = mean(y);           % offset
     opt.params0 = [A0, beta0, omega0, phi0, C0];
 
     % --- Bounds ---
@@ -57,7 +54,9 @@ function damping_oscillations = isDampOscillating(y, opt)
     
     try
         % --- Fit model ---
+        %params_fit = lsqcurvefit(model, opt.params0, opt.t, y, lb, ub, options);
         params_fit = lsqcurvefit(model, opt.params0, t, y, lb, ub, options);
+
 
         % --- Check beta (must be negative for damping) ---
         beta_fit = params_fit(2);
@@ -86,8 +85,7 @@ function damping_oscillations = isDampOscillating(y, opt)
             legend('Real segment','Curve fit');
             title(['Damping fit, R^2 = ' num2str(R2,'%.2f')]);
             hold off;
-         end
-
+        end
     catch
         damping_oscillations = false;
     end

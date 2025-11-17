@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="2775946703" file="C:\Users\s.maatoug\Documents\SFERA\sfera_tool\SFERA beta.prj" location="C:\Users\s.maatoug\Documents\SFERA\sfera_tool" name="SFERA beta" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="3853081009" file="C:\Users\s.maatoug\Documents\SFERA\sfera_tool\SFERA beta.prj" location="C:\Users\s.maatoug\Documents\SFERA\sfera_tool" name="SFERA beta" target="target.mlapps" target-name="Package App">
     <param.appname>SFERA beta</param.appname>
     <param.authnamewatermark />
     <param.email />
@@ -8,7 +8,7 @@
     <param.icons />
     <param.summary />
     <param.description />
-    <param.screenshot>C:\Users\s.maatoug\AppData\Local\Temp\tpbeb623be_bf07_49a2_bc06_f8b8f059bfca.png</param.screenshot>
+    <param.screenshot>C:\Users\s.maatoug\AppData\Local\Temp\tp54017797_7c26_40ca_82f1_54ce06d55e3f.png</param.screenshot>
     <param.version>1.0</param.version>
     <param.products.name />
     <param.products.id />
@@ -42,9 +42,21 @@
       <file>${PROJECT_ROOT}\Effects Library\functions\isDivergent.m</file>
       <file>${PROJECT_ROOT}\Effects Library\functions\isDivOscillating.m</file>
       <file>${PROJECT_ROOT}\Effects Library\functions\isExpDivergent.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\isFifthRadix.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\isGenericDiv.m</file>
       <file>${PROJECT_ROOT}\Effects Library\functions\isMultiSinusoids.m</file>
       <file>${PROJECT_ROOT}\Effects Library\functions\isPermOscillating.m</file>
       <file>${PROJECT_ROOT}\Effects Library\functions\isRunge.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\options\arcTanOptions.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\options\cubicRadixOptions.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\options\dampOscillationOptions.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\options\divOscillationOptions.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\options\expDivergenceOptions.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\options\fifthRadixOptions.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\options\multiSinusoidsOptions.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\options\options.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\options\permOscillationOptions.m</file>
+      <file>${PROJECT_ROOT}\Effects Library\functions\options\rungeOptions.m</file>
       <file>${PROJECT_ROOT}\help_functions\cleanSignal.m</file>
       <file>${PROJECT_ROOT}\images\logo\logo3.png</file>
       <file>${PROJECT_ROOT}\segmentations\dySegmentation.m</file>

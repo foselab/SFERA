@@ -10,9 +10,6 @@ function isExp = isExpDivergent(y, opt)
 
     % --- Preprocessing ---
     y = y(:);
-    % if iscell(y)
-    %     y = cell2mat(y);
-    % end
     y = y(~isnan(y) & ~isinf(y));
 
     if length(y) < 5
@@ -29,7 +26,7 @@ function isExp = isExpDivergent(y, opt)
     % --- Initial guesses ---
     A0 = min(y);  % baseline
     B0 = max(y) - min(y);
-    C0 = opt.params0(3);  
+    C0 = opt.params0(3); % small negative decay   
     opt.params0 = [A0, B0, C0];
 
     % --- Bounds ---
@@ -57,7 +54,7 @@ function isExp = isExpDivergent(y, opt)
 
         % --- Threshold criterion ---
         isExp = R2 > opt.threshold;
-        
+
         % --- Optional plot ---
         if isExp && opt.showPlot            
             figure;
@@ -72,3 +69,5 @@ function isExp = isExpDivergent(y, opt)
         isExp = false;
     end
 end
+
+   

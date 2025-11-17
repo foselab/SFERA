@@ -1,12 +1,14 @@
-classdef expDivergenceOptions
-    
+% File: expDivergenceOptions.m
+classdef expDivergenceOptions < options
+    %EXPDIVERGENCEOPTIONS Options for exponential fitting
+
     properties
         % --- Parameters bounds ---
-        lb double = [-Inf, -Inf, -10];
-        ub double = [Inf, Inf, 10];
+        lb double = [-Inf, -Inf, -Inf];
+        ub double = [Inf, Inf, Inf];
 
         % --- Initial guesses ---
-        params0 double = [1, 1, 0.5]
+        params0 double = [1, 1, -0.00001]
 
         % --- Optimization parameters ---
         tolFun double = 1e-6;

@@ -1,9 +1,9 @@
 % File: dampOscillationOptions.m
 classdef dampOscillationOptions < options
     properties
-        %  --- default bounds for model parameters ---
-        lb double = [0, -10, 0, -pi, -Inf];  
-        ub double = [Inf, 0, 50, pi, +Inf];  
+        %  --- Parameters bound ---
+        lb double = [0, -10, 0, -pi, -Inf]; 
+        ub double = [Inf, 0, 50, pi, +Inf];
 
         % --- Initial guesses ---
         params0 double = [1, 1, 0.5, 0, 1];  

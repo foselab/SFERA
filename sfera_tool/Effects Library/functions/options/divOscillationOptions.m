@@ -1,5 +1,6 @@
 % File: divOscillationOptions.m
 classdef divOscillationOptions < options
+    %DIVOSCILLATIONOPTIONS Options for divergent oscillation fitting
     properties
         % --- Parameters bounds ---
         lb double = [0, -10, 0, -pi, -Inf];  
