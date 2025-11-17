@@ -8,24 +8,26 @@ This repository contains the core code, auxiliary functions, and the user manual
 ## 🗂 Repository Structure
 
 ```text
-├── Buck_BLDC_2023a_4.slxc        # Model on which the tool is tested
-├── User Manual.pdf               # Basic user guide and instructions
-├── mathworks/                    # Main MATLAB code directory
-│   ├── SFERA beta.mlappinstall   # Installation package (beta version)
-│   ├── SFERA beta.prj            # Installation project file
-│   ├── SFERA.mlapp               # App Designer main interface
-│   ├── help_functions/           # Auxiliary functions (e.g., signal cleaning)
-│   ├── segmentations/            # Signal segmentation routines
-│   ├── images/                   # Tool-related images (e.g., logo)
-│   ├── Effects Library/          # Functions and Simulink library for effect control
-│   └── functions/                # Core analysis logic
-│       ├── isDivergent.m         # Main analysis logic file
-│       └── isGenericDiv.m        # Custom analysis prototype (in testing phase)
-|       └── ...                   # Base effects checking functions
+├── Buck_BLDC_2023a_4.slx                   # Model on which the tool is tested
+├── Buck_BLDC_2023a_4_faultInfo.xml         # XML containing faults activation states
+├── User Manual.pdf                         # Basic user guide and instructions
+├── sfera_tool/                             # Main MATLAB code directory
+│   ├── SFERA beta.mlappinstall             # Installation package (beta version)
+│   ├── SFERA beta.prj                      # Installation project file
+│   ├── SFERA.mlapp                         # App Designer main interface
+│   ├── segmentations/                      # Signal segmentation routines
+│   ├── images/                             # Tool-related images (e.g., logo)
+│   ├── Effects Library/                    # Functions and Simulink library for effect control
+│       ├── functions/                      # Core analysis logic
+│           ├── isDivergent.m               # Main analysis logic file
+│           ├── isGenericDiv.m              # Custom analysis prototype (in testing phase)
+|           ├── ...                         # Base effects checking functions
+|           └── aux_functions               # Auxiliary functions used during analysis (e.g., cleanSignal)
+├── developer_corner/                       # Main MATLAB code directory
 ```
 ## 🔍 Key Components 
 
-### `mathworks/`
+### `sfera_tool/`
 This is the main folder containing all MATLAB code and resources required to run SFERA.
 
 - **`SFERA.mlapp`** – The App Designer file providing the main graphical interface.  
