@@ -16,6 +16,7 @@ This repository contains the core code, auxiliary functions, and the user manual
 │   ├── SFERA beta.prj                      # Installation project file
 │   ├── SFERA.mlapp                         # App Designer main interface
 │   ├── segmentations/                      # Signal segmentation routines
+|           └── options/                    # MATLAB class hierarchy: abstract 'segmentationOptions' and subclasses for segmentation logic
 │   ├── images/                             # Tool-related images (e.g., logo)
 │   ├── Effects Library/                    # Functions and Simulink library for effect control
 │       ├── functions/                      # Core analysis logic
