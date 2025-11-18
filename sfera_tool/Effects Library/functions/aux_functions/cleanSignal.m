@@ -1,5 +1,5 @@
 function [y_clean, idx_start] = cleanSignal(y, method, varargin)
-% CLEAN SIGNAL removes the initial "inactive" part of the signal y.
+% CLEANSIGNAL removes the initial "inactive" part of the signal y.
 % [y_clean, idx_start] = cleanSignal(y, method, ...)
 % method: 'adaptive' (default), 'percent', 'peak', 'baseline'
 % Additional options (varargin):
