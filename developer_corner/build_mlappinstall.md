@@ -6,10 +6,7 @@ This document explains how to regenerate the `.mlappinstall` file after modifyin
 
 ## 1. Open the App in App Designer
 1. Launch MATLAB.
-2. Open the main `.mlapp` file of the project:
-   ```matlab
-   appdesigner('path/to/YourApp.mlapp')
-   ```
+2. Open the main `.mlapp` file of the project.
 3. Ensure the app runs without errors using the **Run** button.
 
 ---
@@ -37,11 +34,6 @@ MATLAB provides a built-in utility to package apps.
    - Choose the output folder for the final package
 4. Click **Package** to generate the `.mlappinstall` file.
 
-The output file is usually created in a folder named:
-```
-<project_root>/package/
-```
-
 ---
 
 ## 4. Test the Installation Package
@@ -49,25 +41,6 @@ The output file is usually created in a folder named:
 2. MATLAB should open the installation dialog.
 3. Install the app.
 4. Validate that the installed app behaves as expected.
-
----
-
-## 5. Versioning
-For consistent releases, update the app's **Version** field in the packaging tool.
-Use semantic versioning whenever possible:
-```
-MAJOR.MINOR.PATCH
-```
-Commit the regenerated package only when preparing a release or internal testing build.
-
----
-
-## 6. Optional Automation
-MATLAB allows packaging via script:
-```matlab
-matlab.apputil.package('YourApp.mlapp');
-```
-This can be used in CI/CD pipelines or custom release scripts.
 
 ---
 
