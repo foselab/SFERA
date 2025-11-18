@@ -26,23 +26,23 @@ changePts = <SegmentationMethod>(y, opt)
 **Class hierarchy for options:**
 
 ```
-SegmentationOptions (abstract)
-├── DySegmentationOptions
-├── MatlabSegmentationOptions
-├── SwSegmentationOptions
-└── UniformSegmentationOptions
+segmentationOptions (abstract)
+├── dySegmentationOptions
+├── matlabSegmentationOptions
+├── swSegmentationOptions
+└── uniformSegmentationOptions
 ```
 
 ---
 
-## 2. Base Class: `SegmentationOptions`
+## 2. Base Class: `segmentationOptions`
 
 - Abstract class: no properties by itself  
 - Purpose: enforce a **uniform interface** for passing parameters to segmentation functions  
 - Every new segmentation method should define its own options class derived from this base.
 
 ```matlab
-classdef (Abstract) SegmentationOptions
+classdef (Abstract) segmentationOptions
     % Base class for all segmentation options
 end
 ```
@@ -53,15 +53,15 @@ end
 
 | Class | Description | Key Properties |
 |-------|-------------|----------------|
-| `DySegmentationOptions` | Derivative-based | `thresholdMultiplier`, `minDistanceFraction` |
-| `MatlabSegmentationOptions` | Built-in MATLAB `findchangepts` | `maxChangeFraction` |
-| `SwSegmentationOptions` | Sliding-window | `metric`, `winLenFraction`, `overlap` |
-| `UniformSegmentationOptions` | Uniform split | `perc` |
+| `dySegmentationOptions` | Derivative-based | `thresholdMultiplier`, `minDistanceFraction` |
+| `matlabSegmentationOptions` | Built-in MATLAB `findchangepts` | `statistic`, `maxChangeFraction` |
+| `swSegmentationOptions` | Sliding-window | `metric`, `winLenFraction`, `overlap` |
+| `uniformSegmentationOptions` | Uniform split | `perc` |
 
 **Example instantiation:**
 
 ```matlab
-opt = SwSegmentationOptions();
+opt = swSegmentationOptions();
 opt.metric = 'rms';
 opt.winLenFraction = 0.1;
 opt.overlap = 5;
@@ -101,10 +101,10 @@ changePts = swSegmentation(y, opt);
 
 ### Adding a new segmentation method
 
-1. Create a new **options class** derived from `SegmentationOptions`  
+1. Create a new **options class** derived from `segmentationOptions`  
 
 ```matlab
-classdef MySegmentationOptions < SegmentationOptions
+classdef mySegmentationOptions < segmentationOptions
     properties
         myParam = 1.0; % default value
     end
@@ -139,7 +139,7 @@ end
 
 ```matlab
 % 1. Create options object
-opt = DySegmentationOptions();
+opt = dySegmentationOptions();
 opt.thresholdMultiplier = 3;
 
 % 2. Segment signal
