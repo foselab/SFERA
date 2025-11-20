@@ -86,7 +86,7 @@ function changePts = dySegmentation(y, opt)
     else
         changePts = [];
     end
-    changePts = [1; changePts; length(y)];
+    changePts = [changePts; length(y)];
 end
 
 

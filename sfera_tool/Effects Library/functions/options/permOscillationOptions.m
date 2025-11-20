@@ -20,8 +20,6 @@ classdef permOscillationOptions < options
         useSpectralCheck logical = true;
         spectralThreshold double = 0.25;  % picco dominante (0–1 normalizzato)
 
-        % --- Plot options ---
-        showPlot logical = false;
     end
 
     methods

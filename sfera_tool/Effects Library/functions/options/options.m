@@ -100,6 +100,7 @@ classdef (Abstract) options
 
     properties
         threshold double = 0.95; 
+        showPlot logical = false;
     end   
 end
 

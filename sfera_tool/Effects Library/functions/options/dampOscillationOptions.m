@@ -11,9 +11,6 @@ classdef dampOscillationOptions < options
         % --- Optimization parameters ---
         maxIter double = 1000;
         tolFun double = 1e-6;
-
-        % --- Plot options ---
-        showPlot logical = false;
     end
 
     methods

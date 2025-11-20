@@ -77,7 +77,7 @@ function changePts = matlabSegmentation(y, opt)
 
     % Use built-in findchangepts function
     changePts = findchangepts(y, 'Statistic', opt.statistic, 'MaxNumChanges', maxChanges);
-    changePts = [changePts(:); length(y)];
+    changePts = [1; changePts(:); length(y)];
 
 end
 

@@ -5,8 +5,8 @@ function isPerm = isPermOscillating(y, opt)
     %
     % Returns true if:
     %   - fit is good (R² > threshold)
-    %   - beta ~ 0 (no damping)
-    %   - AND/OR strong spectral peak is detected
+    %   - beta ~ 0 (no damping or divergence)
+    %   - OR strong spectral peak is detected
 
     arguments
         y double
@@ -15,9 +15,6 @@ function isPerm = isPermOscillating(y, opt)
 
     % --- Preprocessing ---
     y = y(:);
-    % if iscell(y)
-    %     y = cell2mat(y);
-    % end
     y = y(~isnan(y) & ~isinf(y));
 
     if length(y) < 5
@@ -25,82 +22,89 @@ function isPerm = isPermOscillating(y, opt)
         return
     end
 
-    % --- Peak check ---
+    % --- Peak check (quick reject) ---
     [validPeaks] = findMaxPeaks(y, 0.2 * max(y), 100);
-    if numel(validPeaks) < 3
+    if numel(validPeaks) < 2
         isPerm = false;
         return
     end
 
-    % --- Time normalization ---
-    t = (0:length(y)-1)';
+    % --- Time base normalization ---
+    t = linspace(0,1,length(y))';      
 
-    % --- Initial guesses ---
-    A0 = max(abs(y));
-    opt.params0 = [A0, opt.params0];
+    % --- Initial parameters ---
+    A0 = (max(y) - min(y))/2;
+    offset0 = mean(y);
+    omega0 = 2*pi;                    
+    phi0 = 0;
 
-    % --- Model ---
-    model = @(p, t) p(1) * exp(p(2) * t) .* cos(p(3) * t + p(4));
+    % model: y(t) = A * cos(ωt + φ) + offset + small damping
+    model = @(p,t) p(1) * exp(p(2)*t) .* cos(p(3)*t + p(4)) + p(5);
+
+    p0 = [A0, 0, omega0, phi0, offset0];
+    lb = [-Inf -opt.betaTol 0 -2*pi min(y)];
+    ub = [ Inf  opt.betaTol Inf  2*pi max(y)];
 
     % --- Optimization ---
-    options = optimoptions('lsqcurvefit', ...
-        'TolFun', opt.tolFun, ...
-        'MaxIterations', opt.maxIter, ...
-        'Display', 'off');
+    R2 = 0;
+    beta_fit = NaN;
 
     try
-        params_fit = lsqcurvefit(model, opt.params0, t, y, opt.lb, opt.ub, options);
-        beta_fit = params_fit(2);
+        options = optimoptions('lsqcurvefit',...
+            'Display','off',...
+            'MaxIterations', opt.maxIter,...
+            'TolFun', opt.tolFun);
 
-        % --- Check for nearly zero damping ---
-        if abs(beta_fit) > opt.betaTol
-            isPerm = false;
-            return
-        end
+        pfit = lsqcurvefit(model, p0, t, y, lb, ub, options);
 
-        % --- Compute R² ---
-        y_fit = model(params_fit, t);
-        residuals = y - y_fit;
-        SSR = sum(residuals.^2);
+        beta_fit = pfit(2);
+        y_fit    = model(pfit, t);
+
+        % R^2
+        SSR = sum((y - y_fit).^2);
         SST = sum((y - mean(y)).^2);
         R2 = 1 - SSR/SST;
 
-        % --- Primary criterion: R² threshold ---
-        isPerm = R2 > opt.threshold;
-
-        % --- Spectral check (optional or fallback) ---
-        if ~isPerm && opt.useSpectralCheck
-            Y_fft = fft(y);
-            N = length(y);
-            P2 = abs(Y_fft / N);
-            P1 = P2(1:floor(N/2) + 1);
-            P1(2:end-1) = 2 * P1(2:end-1);
-
-            % Normalize and compute spectral norm
-            Pnorm = P1 / sum(P1);
-            spectralRatio = max(Pnorm);  % dominance of one frequency
-
-            % If dominant frequency is clear enough
-            isPerm = spectralRatio > opt.spectralThreshold;
-        end
-
-        % --- Optional plot ---
-        if isPerm && opt.showPlot
-            figure;
-            subplot(2,1,1)
-            plot(y,'b','LineWidth',1.5); hold on;
-            plot(y_fit,'r--','LineWidth',1.5);
-            legend('Signal','Fit'); title(sprintf('R² = %.3f', R2));
-            hold off;
-
-            subplot(2,1,2)
-            f = (0:floor(N/2)) / N;
-            plot(f, P1); title('Spectrum'); xlabel('Frequency'); ylabel('Amplitude');
-        end
+        % FIT CRITERION
+        opt.betaTol = 1e-5;
+        useFit = (R2 > opt.threshold) && (abs(beta_fit) < opt.betaTol);
 
     catch
-        isPerm = false;
+        useFit = false;
+    end
+
+    % --- FFT analysis ---
+    Y = fft(y);
+    N = length(y);
+    P2 = abs(Y/N);
+    P1 = P2(1:floor(N/2)+1);
+    P1(2:end-1) = 2 * P1(2:end-1);
+    Pnorm = P1 / sum(P1);
+    spectralRatio = max(Pnorm);
+
+    useFFT = (spectralRatio > opt.spectralThreshold);
+
+    % --- Final decision: OR ---
+    isPerm = useFit || useFFT;
+
+    % --- Optional plot ---
+    if opt.showPlot
+        figure;
+        subplot(2,1,1)
+        plot(t,y,'b','LineWidth',1.5); hold on;
+        if exist('y_fit','var')
+            plot(t,y_fit,'r--','LineWidth',1.5);
+        end
+        legend('Signal','Fit');
+        title(sprintf('R^2 = %.3f   |beta|=%.3g', R2, abs(beta_fit)));
+
+        subplot(2,1,2)
+        f = linspace(0,1, numel(P1));
+        plot(f, P1);
+        title(sprintf('Spectrum (ratio=%.3f)', spectralRatio));
+        xlabel('Freq');
     end
 end
+
 
 

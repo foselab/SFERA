@@ -96,7 +96,7 @@ function changePts = swSegmentation(y, opt)
     % === 3. Map window indices ===
     changePts = cand * step;
     changePts = unique(min(changePts, N));
-    changePts = [changePts(:); N];         % always include the end
+    changePts = [1; changePts(:); N];         % always include the end
 
 end
 

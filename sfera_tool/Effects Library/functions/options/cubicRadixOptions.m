@@ -13,8 +13,6 @@ classdef cubicRadixOptions < options
         tolFun double = 1e-6;
         maxIter double = 1000;
 
-        % --- Plot options ---
-        showPlot logical = false;
     end
 
     methods

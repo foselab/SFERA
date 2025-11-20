@@ -94,7 +94,7 @@ function [isDiv, howDiv] = isDivergent(y, effectName, customFunc, params0)
         end
 
         % Use generic divergence function (internally creates t, options)
-        opt = [];  % can pass default inside isGenericDiv
+        opt = [];  % can pass default inside isCustomDivergent
         isDiv = isCustomDivergent(y, opt, customFunc, params0);
         howDiv = ternary(isDiv, 'Custom Divergent Behavior', 'No divergence detected by custom function');
         return;

@@ -11,9 +11,6 @@ function isCubicRad = isCubicRadix(y, opt)
 
     % --- Preprocessing ---
     y = y(:);
-    % if iscell(y)
-    %     y = cell2mat(y);
-    % end
     y = y(~isnan(y) & ~isinf(y));
 
     if length(y) < 5
@@ -21,7 +18,7 @@ function isCubicRad = isCubicRadix(y, opt)
         return;
     end
 
-    % --- Time vector normalized to [0, 1] ---
+    % --- Time vector ---
     t = (0:length(y)-1)';
 
     % --- Model definition (safe cubic root) ---
