@@ -196,7 +196,7 @@
       <isEnabled>false</isEnabled>
     </faultContainers>
     <isEnabled>true</isEnabled>
-    <lastUpdatedAt>2025-12-01T03:05:37</lastUpdatedAt>
+    <lastUpdatedAt>2025-12-01T15:43:57</lastUpdatedAt>
     <modelName>Buck_BLDC_2023a_4</modelName>
     <modelUUID>3f5c806a-d5f7-4781-93c7-e73e1c8f64f6</modelUUID>
   </faultinfo.FaultContainerSet>
